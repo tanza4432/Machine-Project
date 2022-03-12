@@ -6,11 +6,23 @@ const multer = Multer({
     fileSize: 5 * 1024 * 1024,
   },
 });
-const { uploadImage } = require("../controllers/mainController");
+const {
+  login,
+  register,
+  getalluser,
+  uploadImage,
+  delImage,
+  editImage,
+} = require("../controllers/mainController");
 
 const router = express.Router();
 
-router.post("/uploadimg", multer.single("img"), uploadImage);
+router.post("/user/login", login);
+router.post("/user/register", register);
+router.get("/user", getalluser);
+router.post("/uploadimg/:id", multer.single("img"), uploadImage);
+router.patch("/user/img/remove/:id/:index", delImage);
+router.put("/user/img/:id/:index", multer.single("img"), editImage);
 
 module.exports = {
   routes: router,
