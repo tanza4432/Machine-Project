@@ -2,22 +2,23 @@
 
 const firebase = require("../db");
 const { Account } = require("../models/main");
-const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const firestore = firebase.firestore();
+const storage = require("../storage");
+const bucket = storage.bucket();
 
 const uploadImage = async (req, res, next) => {
-  const folder = "profile";
+  const folder = "image";
   const filename = `${folder}/${Date.now()}`;
   const fileupload = bucket.file(filename);
-  const file = bucket.file(`profile/${filename.split("/")[1]}`);
+  const file = bucket.file(`image/${filename.split("/")[1]}`);
   const link =
     "https://firebasestorage.googleapis.com/v0" +
     file.parent.baseUrl +
     "/" +
     file.parent.name +
     file.baseUrl +
-    "/profile" +
+    "/image" +
     "%2F" +
     filename.split("/")[1] +
     "?alt=media";
