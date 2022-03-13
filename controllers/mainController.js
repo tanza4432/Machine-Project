@@ -76,17 +76,18 @@ const getalluser = async (req, res, next) => {
 
 const uploadImage = async (req, res, next) => {
   const id = req.params.id;
-  const folder = "image";
+  const folder = "image-" + id;
   const filename = `${folder}/${Date.now()}`;
   const fileupload = bucket.file(filename);
-  const file = bucket.file(`image/${filename.split("/")[1]}`);
+  const file = bucket.file(`image-${id}/${filename.split("/")[1]}`);
   const link =
     "https://firebasestorage.googleapis.com/v0" +
     file.parent.baseUrl +
     "/" +
     file.parent.name +
     file.baseUrl +
-    "/image" +
+    "/image-" +
+    id +
     "%2F" +
     filename.split("/")[1] +
     "?alt=media";
@@ -136,17 +137,18 @@ const delImage = async (req, res, next) => {
 const editImage = async (req, res, next) => {
   const id = req.params.id;
   const index = req.params.index;
-  const folder = "image";
+  const folder = "image-" + id;
   const filename = `${folder}/${Date.now()}`;
   const fileupload = bucket.file(filename);
-  const file = bucket.file(`image/${filename.split("/")[1]}`);
+  const file = bucket.file(`image-${id}/${filename.split("/")[1]}`);
   const link =
     "https://firebasestorage.googleapis.com/v0" +
     file.parent.baseUrl +
     "/" +
     file.parent.name +
     file.baseUrl +
-    "/image" +
+    "/image-" +
+    id +
     "%2F" +
     filename.split("/")[1] +
     "?alt=media";
